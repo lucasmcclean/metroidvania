@@ -11,7 +11,7 @@ const ACCELERATION:float = 5000.0
 @onready var sprite := $Sprite2D as Sprite2D
 @onready var collision := $CollisionShape2D as CollisionShape2D
 
-var has_control:bool = false
+var has_control:bool = true
 var current_state:States = States.GROUNDED
 
 func update_velocity(movement_direction:float, delta: float) -> void:

@@ -6,8 +6,14 @@ const ACCELERATION:float = 5000.0
 @onready var sprite := $Sprite2D as Sprite2D
 @onready var collision := $CollisionShape2D as CollisionShape2D
 
+var has_control:bool = false
+
 func handle_input(delta: float) -> void:
-	var input_direction := Input.get_axis("ui_left", "ui_right")
+	var input_direction:float
+	if has_control:
+		input_direction = Input.get_axis("ui_left", "ui_right")
+	else:
+		input_direction = 0
 	if input_direction != 0:
 		velocity.x += input_direction * ACCELERATION * delta
 		velocity.x = clamp(velocity.x, -MAX_WALKING_SPEED, MAX_WALKING_SPEED)

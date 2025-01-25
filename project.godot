@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Metroidvania"
-run/main_scene="res://autoloads/game.tscn"
+run/main_scene="res://scenes/levels/test_level.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-AudioManager="*res://autoloads/audio_manager.gd"
-LevelManager="*res://autoloads/level_manager.gd"
+Sound="*res://autoloads/sound_manager.gd"
+Levels="*res://autoloads/level_manager.gd"
 
 [debug]
 

@@ -59,6 +59,7 @@ libraries = {
 "": SubResource("AnimationLibrary_5dyth")
 }
 playback_auto_capture_transition_type = 6
+speed_scale = 0.5
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 3

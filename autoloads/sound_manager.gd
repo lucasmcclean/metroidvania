@@ -48,7 +48,7 @@ func next_effect_player_idx() -> int:
 
 
 ## Sets the volume of the specified bus given a percentage value for volume.
-func set_volume(bus_index: int, volume: float) -> void:
+func set_volume(bus_index: Bus, volume: float) -> void:
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(volume))
 
 

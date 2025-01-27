@@ -1,26 +1,31 @@
 class_name LoadingScreen
 extends CanvasLayer
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+var _is_fading: bool = false
 
-var is_fading: bool = false
+@onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
+
+## Fades in the loading screen.
 func fade_in() -> void:
-	is_fading = true
-	animation_player.play("fade")
+	_is_fading = true
+	_animation_player.play("fade")
+	await _finished()
 
+
+## Fades out the loading screen and frees it.
 func fade_out_and_free() -> void:
-	if is_fading:
-		await animation_player.animation_finished
-
-	animation_player.play_backwards("fade")
-	await animation_player.animation_finished
+	_is_fading = true
+	_animation_player.play_backwards("fade")
+	await _finished()
 	self.call_deferred("queue_free")
 
-func finished() -> void:
-	while is_fading:
+
+func _finished() -> void:
+	while _is_fading:
 		await get_tree().process_frame
 	return
 
+
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
-	is_fading = false
+	_is_fading = false

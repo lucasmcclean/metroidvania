@@ -5,11 +5,14 @@ extends Node
 
 var state: State
 
+
+# TODO: Possibly employ lifecycle method
 func initialize() -> void:
 	for child in get_children():
 		child.state_machine = self
 	await owner.ready
 	change_state(initial_state)
+
 
 func change_state(new_state: State) -> void:
 	if is_instance_valid(state):
@@ -17,8 +20,10 @@ func change_state(new_state: State) -> void:
 	state = new_state
 	state.enter()
 
+
 func physics_update(delta: float) -> void:
 	state.physics_update(delta)
+
 
 func update(delta: float) -> void:
 	state.update(delta)

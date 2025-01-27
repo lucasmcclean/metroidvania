@@ -18,7 +18,7 @@ func fade_out_and_free() -> void:
 	_is_fading = true
 	_animation_player.play_backwards("fade")
 	await _finished()
-	self.call_deferred("queue_free")
+	self.queue_free()
 
 
 func _finished() -> void:

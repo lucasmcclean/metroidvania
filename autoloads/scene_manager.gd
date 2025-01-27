@@ -21,7 +21,7 @@ func switch(from_scene: Node, to_scene_path: StringName) -> void:
 
 func _instantiate_loading_screen() -> LoadingScreen:
 	var instance: Node = _loading_screen.instantiate()
-	add_child(instance)
+	self.add_child(instance)
 	return instance
 
 

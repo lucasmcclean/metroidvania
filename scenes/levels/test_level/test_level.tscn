@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://jrcitq4lln8w"]
+[gd_scene load_steps=7 format=4 uid="uid://jrcitq4lln8w"]
 
-[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_76kp5"]
+[ext_resource type="Script" path="res://scenes/levels/test_level/test_level.gd" id="1_2relc"]
 [ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_mk1ml"]
 [ext_resource type="PackedScene" uid="uid://dtq6vbeqppj66" path="res://scenes/agents/player/player.tscn" id="3_li6si"]
 
@@ -22,8 +22,10 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_oewph")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fyps"]
+
 [node name="TestLevel" type="Node2D"]
-script = ExtResource("1_76kp5")
+script = ExtResource("1_2relc")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAaAAsAAAAAAAAAAAAbAAsAAAAAAAAAAAAcAAsAAAAAAAAAAAAdAAsAAAAAAAAAAAA=")
@@ -31,3 +33,17 @@ tile_set = SubResource("TileSet_djjf0")
 
 [node name="Player" parent="." instance=ExtResource("3_li6si")]
 position = Vector2(573, 516)
+
+[node name="LevelSwitcher" type="Area2D" parent="."]
+position = Vector2(229, 574)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelSwitcher"]
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_1fyps")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelSwitcher"]
+texture = ExtResource("2_mk1ml")
+
+[connection signal="body_entered" from="LevelSwitcher" to="." method="_on_level_switcher_body_entered"]

@@ -6,10 +6,15 @@ var _is_fading: bool = false
 @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 
 
+func _ready() -> void:
+	self.visible = false
+
+
 ## Fades in the loading screen.
 func fade_in() -> void:
 	_is_fading = true
 	_animation_player.play("fade")
+	self.visible = true
 	await _finished()
 
 
@@ -18,6 +23,7 @@ func fade_out() -> void:
 	_is_fading = true
 	_animation_player.play_backwards("fade")
 	await _finished()
+	self.visible = false
 
 
 func _finished() -> void:

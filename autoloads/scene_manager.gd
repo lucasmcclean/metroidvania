@@ -1,28 +1,26 @@
 extends Node
 
-@onready var _loading_screen: PackedScene = preload("res://scenes/loading_screen/loading_screen.tscn")
+@onready var _loading_screen_scene: PackedScene = preload("res://scenes/loading_screen/loading_screen.tscn")
+
+var _loading_screen: LoadingScreen
+
+func _ready() -> void:
+	_loading_screen = _loading_screen_scene.instantiate() as LoadingScreen
+	self.add_child(_loading_screen)
 
 
 ## Pauses the game and a displays loading screen until [to_scene_path] is loaded.
 ## After loading, frees [from_scene]—the scene to be replaced—and resumes the game.
-func switch(from_scene: Node, to_scene_path: StringName) -> void:
+func switch_with_fade(from_scene: Node, to_scene_path: StringName) -> void:
 	Game.pause()
 
-	var lc_instance: LoadingScreen = _instantiate_loading_screen()
-
-	await lc_instance.fade_in()
+	await _loading_screen.fade_in()
 
 	from_scene.queue_free()
 	_load_and_instantiate_scene(to_scene_path)
 
-	await lc_instance.fade_out_and_free()
+	await _loading_screen.fade_out()
 	Game.resume()
-
-
-func _instantiate_loading_screen() -> LoadingScreen:
-	var instance: Node = _loading_screen.instantiate()
-	self.add_child(instance)
-	return instance
 
 
 func _load_and_instantiate_scene(scene_path: StringName) -> void:
@@ -31,5 +29,5 @@ func _load_and_instantiate_scene(scene_path: StringName) -> void:
 	while ResourceLoader.load_threaded_get_status(scene_path) != ResourceLoader.THREAD_LOAD_LOADED:
 		await get_tree().process_frame
 
-	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+	var scene := ResourceLoader.load_threaded_get(scene_path) as PackedScene
 	Game.add_child(scene.instantiate())

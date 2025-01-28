@@ -14,11 +14,10 @@ func fade_in() -> void:
 
 
 ## Fades out the loading screen and frees it.
-func fade_out_and_free() -> void:
+func fade_out() -> void:
 	_is_fading = true
 	_animation_player.play_backwards("fade")
 	await _finished()
-	self.queue_free()
 
 
 func _finished() -> void:

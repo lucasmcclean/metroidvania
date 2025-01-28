@@ -1,7 +1,7 @@
 extends Node
 
 ## Number of effect players to allocate for static usage.
-@export var num_effect_players: int = 32
+@export var _num_effect_players: int = 32
 
 enum Bus {
 	MASTER,
@@ -10,29 +10,29 @@ enum Bus {
 	DIALOGUE,
 	}
 
-var effect_player_pool: Array[AudioStreamPlayer]
-var next_effect_player: int = 0
+var _effect_player_pool: Array[AudioStreamPlayer]
+var _next_effect_player: int = 0
 
 enum SoundEffect {
 	# EXAMPLE
 	}
-var sound_effects: Array[AudioStream] = [
+var _sound_effects: Array[AudioStream] = [
 	# preload("res://assets/sfx/example.wav")
 	]
 
 
 func _ready() -> void:
-	for i in range(num_effect_players):
+	for i in range(_num_effect_players):
 		var effect_player: AudioStreamPlayer = AudioStreamPlayer.new()
 		add_child(effect_player)
-		effect_player_pool.append(effect_player)
+		_effect_player_pool.append(effect_player)
 
 
 ## Plays the given sound effect and returns a function for stopping it.
 func play_effect(sound_effect: SoundEffect) -> Callable:
-	var stream: AudioStream = sound_effects[sound_effect]
+	var stream: AudioStream = _sound_effects[sound_effect]
 	var idx: int = _next_effect_player_idx()
-	var effect_player: AudioStreamPlayer = effect_player_pool[idx]
+	var effect_player: AudioStreamPlayer = _effect_player_pool[idx]
 	effect_player.stream = stream
 	effect_player.bus = AudioServer.get_bus_name(Bus.SFX)
 	effect_player.play()
@@ -42,8 +42,8 @@ func play_effect(sound_effect: SoundEffect) -> Callable:
 
 ## Returns the index of the next available effect player.
 func _next_effect_player_idx() -> int:
-	var next: int = next_effect_player
-	next_effect_player = (next_effect_player + 1) % num_effect_players
+	var next: int = _next_effect_player
+	_next_effect_player = (_next_effect_player + 1) % _num_effect_players
 	return next
 
 

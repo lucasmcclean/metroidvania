@@ -31,7 +31,7 @@ func _ready() -> void:
 ## Plays the given sound effect and returns a function for stopping it.
 func play_effect(sound_effect: SoundEffect) -> Callable:
 	var stream: AudioStream = sound_effects[sound_effect]
-	var idx: int = next_effect_player_idx()
+	var idx: int = _next_effect_player_idx()
 	var effect_player: AudioStreamPlayer = effect_player_pool[idx]
 	effect_player.stream = stream
 	effect_player.bus = AudioServer.get_bus_name(Bus.SFX)
@@ -41,7 +41,7 @@ func play_effect(sound_effect: SoundEffect) -> Callable:
 
 
 ## Returns the index of the next available effect player.
-func next_effect_player_idx() -> int:
+func _next_effect_player_idx() -> int:
 	var next: int = next_effect_player
 	next_effect_player = (next_effect_player + 1) % num_effect_players
 	return next

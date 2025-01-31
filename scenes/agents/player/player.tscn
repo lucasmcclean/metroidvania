@@ -24,3 +24,6 @@ initial_state = NodePath("Grounded")
 
 [node name="Grounded" type="Node" parent="StateMachine"]
 script = ExtResource("4_mi3h8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.2, 0.2)

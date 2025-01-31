@@ -1,4 +1,4 @@
-class_name TestLevel
+class_name TestLevel2
 extends Level
 
 

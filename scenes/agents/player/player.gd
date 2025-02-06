@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const MAX_WALKING_SPEED: float = 800.0
 const GROUNDED_ACCELERATION: float = 7000.0
-const JUMP_VELOCITY: float = -2300.0
+const JUMP_VELOCITY: float = -2000.0
 const JUMP_BUFFER_TIME: float = 0.083333
 
 var has_control: bool = true

@@ -5,6 +5,7 @@ const MAX_WALKING_SPEED: float = 800.0
 const GROUNDED_ACCELERATION: float = 7000.0
 const JUMP_VELOCITY: float = -1500.0
 const JUMP_BUFFER_TIME: float = 0.083333
+const FALLING_GRAVITY_SCALE: float = 1.3
 
 var has_control: bool = true
 
@@ -32,6 +33,10 @@ func get_input_direction() -> float:
 
 func apply_gravity(delta: float) -> void:
 	velocity.y += Globals.GRAVITY * delta
+
+
+func apply_gravity_scaled(delta: float, gravity_scale: float) -> void:
+	velocity.y += Globals.GRAVITY * delta * gravity_scale
 
 
 func update_velocity(movement_direction: float, delta: float, acceleration: float, deceleration: float) -> void:

@@ -28,7 +28,7 @@ func _check_hit_ground() -> void:
 
 
 func physics_update(delta: float) -> void:
-	player.apply_gravity(delta)
+	player.apply_gravity_scaled(delta, player.FALLING_GRAVITY_SCALE)
 	if player.has_control:
 		player.update_velocity(player.get_input_direction(), delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
 		_check_jumping()

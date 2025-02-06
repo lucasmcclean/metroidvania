@@ -34,6 +34,7 @@ offset_bottom = 40.0
 script = ExtResource("5_hf80x")
 
 [node name="ComboTimer" type="ProgressBar" parent="ComboUI"]
+visible = false
 offset_left = -55.0
 offset_top = -82.0
 offset_right = 56.0

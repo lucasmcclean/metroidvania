@@ -24,6 +24,7 @@ buses/default_bus_layout="res://common/default_bus_layout.tres"
 Sound="*res://autoloads/sound_manager.gd"
 Scenes="*res://autoloads/scene_manager.gd"
 Game="*res://autoloads/game/game.tscn"
+Combo="*res://autoloads/combo_manager/combo_manager.tscn"
 
 [debug]
 

@@ -16,7 +16,7 @@ func _check_falling() -> bool:
 func _check_released_jump() -> bool:
 	if Input.is_action_just_released("jump"):
 		state_machine.change_state(fall_state)
-		player.velocity.y = 1
+		player.velocity.y *= 0.2
 		return true
 	return false
 

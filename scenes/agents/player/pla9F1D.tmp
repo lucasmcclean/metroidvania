@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtq6vbeqppj66"]
+
+[ext_resource type="Script" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
+[ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_3ph14"]
+[ext_resource type="Script" path="res://scenes/common/state_machine.gd" id="3_yhn0t"]
+[ext_resource type="Script" path="res://scenes/agents/player/states/grounded.gd" id="4_mi3h8"]
+[ext_resource type="Script" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
+[ext_resource type="Script" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
+size = Vector2(128, 128)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_w40p7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3ph14")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ucwrr")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_yhn0t")
+initial_state = NodePath("Grounded")
+
+[node name="Grounded" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "jump_state")]
+script = ExtResource("4_mi3h8")
+fall_state = NodePath("../Falling")
+jump_state = NodePath("../Jumping")
+
+[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("ground_state", "jump_state")]
+script = ExtResource("5_snrgw")
+ground_state = NodePath("../Grounded")
+jump_state = NodePath("../Jumping")
+
+[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "ground_state")]
+script = ExtResource("6_5x1mg")
+fall_state = NodePath("../Falling")
+ground_state = NodePath("../Grounded")

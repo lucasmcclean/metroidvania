@@ -1,3 +1,3 @@
 class_name Globals
 
-const GRAVITY: float = 6000.0
+const GRAVITY: float = 3600.0

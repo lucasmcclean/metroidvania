@@ -26,7 +26,6 @@ initial_state = NodePath("Grounded")
 
 [node name="Grounded" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "jump_state")]
 script = ExtResource("4_mi3h8")
-
 fall_state = NodePath("../Falling")
 jump_state = NodePath("../Jumping")
 

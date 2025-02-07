@@ -26,7 +26,6 @@ initial_state = NodePath("Grounded")
 
 [node name="Grounded" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "jump_state")]
 script = ExtResource("4_mi3h8")
-
 fall_state = NodePath("../Falling")
 jump_state = NodePath("../Jumping")
 
@@ -39,3 +38,5 @@ jump_state = NodePath("../Jumping")
 script = ExtResource("6_5x1mg")
 fall_state = NodePath("../Falling")
 ground_state = NodePath("../Grounded")
+
+[node name="Camera2D" type="Camera2D" parent="."]

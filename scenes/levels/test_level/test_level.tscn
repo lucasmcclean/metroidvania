@@ -149,9 +149,6 @@ conn_start_y = 21
 conn_end_x = 79
 conn_end_y = 14
 
-[node name="Player" parent="." instance=ExtResource("3_li6si")]
-position = Vector2(523, 157)
-
 [node name="ZoneSwitcher" type="Area2D" parent="."]
 position = Vector2(66, 266)
 collision_layer = 3
@@ -164,10 +161,7 @@ shape = SubResource("RectangleShape2D_hnf35")
 [node name="Sprite2D" type="Sprite2D" parent="ZoneSwitcher"]
 texture = ExtResource("2_mk1ml")
 
-<<<<<<< HEAD
 [node name="Player" parent="ZoneSwitcher" instance=ExtResource("3_li6si")]
 position = Vector2(366, -83)
 
-=======
->>>>>>> main
 [connection signal="body_entered" from="ZoneSwitcher" to="." method="_on_zone_switcher_body_entered"]

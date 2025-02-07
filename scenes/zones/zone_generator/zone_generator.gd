@@ -16,6 +16,7 @@ func _ready() -> void:
 		cur_root_pos = _calculate_new_root_pos(level, cur_root_pos)
 	self.queue_free()
 
+
 func _position_level_in_area(level: Level, cur_root_pos: Vector2i) -> void:
 	level.position.x = cur_root_pos.x * Global.TILE_SIZE
 	level.position.y = (cur_root_pos.y - level.conn_start_y) * Global.TILE_SIZE

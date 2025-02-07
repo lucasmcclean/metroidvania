@@ -164,4 +164,10 @@ shape = SubResource("RectangleShape2D_hnf35")
 [node name="Sprite2D" type="Sprite2D" parent="ZoneSwitcher"]
 texture = ExtResource("2_mk1ml")
 
+<<<<<<< HEAD
+[node name="Player" parent="ZoneSwitcher" instance=ExtResource("3_li6si")]
+position = Vector2(366, -83)
+
+=======
+>>>>>>> main
 [connection signal="body_entered" from="ZoneSwitcher" to="." method="_on_zone_switcher_body_entered"]

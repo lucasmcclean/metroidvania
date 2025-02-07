@@ -149,9 +149,12 @@ conn_start_y = 21
 conn_end_x = 79
 conn_end_y = 21
 
+<<<<<<< HEAD
+=======
 [node name="Player" parent="." instance=ExtResource("3_7ew1d")]
 position = Vector2(523, 157)
 
+>>>>>>> main
 [node name="ZoneSwitcher" type="Area2D" parent="."]
 position = Vector2(1219, 266)
 collision_layer = 3

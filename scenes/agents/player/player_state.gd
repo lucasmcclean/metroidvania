@@ -4,8 +4,7 @@ extends State
 var player: Player
 
 
-func _ready() -> void:
-	await owner.ready
+func _enter_tree() -> void:
 	player = owner as Player
 	assert(player != null)
 

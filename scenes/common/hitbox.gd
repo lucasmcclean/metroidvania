@@ -12,4 +12,5 @@ func _on_area_entered(area: Area2D) -> void:
 		hurtbox = area as Hurtbox
 	else:
 		return
-	health_component.change_hp()
+	health_component.change_hp(-hurtbox.damage_dealt)
+	got_hit.emit(hurtbox)

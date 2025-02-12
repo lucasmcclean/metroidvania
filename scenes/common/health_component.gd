@@ -5,15 +5,20 @@ signal hp_changed(new_value: int)
 
 
 @export var max_hp: int
-var remaining_hp: int:
-	set(new_value):
-		remaining_hp = new_value
-		hp_changed.emit(new_value)
+var _remaining_hp: int
 
 
 func _ready() -> void:
-	remaining_hp = max_hp
+	_remaining_hp = max_hp
+
+
+func set_hp(new_amount: int) -> void:
+	_remaining_hp = new_amount
+	hp_changed.emit(_remaining_hp)
 
 
 func change_hp(change_amount: int) -> void:
-	remaining_hp = clampi(remaining_hp, 0, max_hp)
+	var new_amount: int = clampi(_remaining_hp, 0, max_hp)
+	if new_amount != _remaining_hp:
+		_remaining_hp = new_amount
+		hp_changed.emit(_remaining_hp)

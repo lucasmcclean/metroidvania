@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=8 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_3ph14"]
 [ext_resource type="Script" path="res://scenes/common/state_machine.gd" id="3_yhn0t"]
 [ext_resource type="Script" path="res://scenes/agents/player/states/grounded.gd" id="4_mi3h8"]
-[ext_resource type="Script" path="res://scenes/agents/player/combo_ui.gd" id="5_hf80x"]
+[ext_resource type="Script" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
+[ext_resource type="Script" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
 size = Vector2(128, 128)
@@ -23,30 +24,19 @@ shape = SubResource("RectangleShape2D_ucwrr")
 script = ExtResource("3_yhn0t")
 initial_state = NodePath("Grounded")
 
-[node name="Grounded" type="Node" parent="StateMachine"]
+[node name="Grounded" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "jump_state")]
 script = ExtResource("4_mi3h8")
+fall_state = NodePath("../Falling")
+jump_state = NodePath("../Jumping")
 
-[node name="ComboUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_hf80x")
+[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("ground_state", "jump_state")]
+script = ExtResource("5_snrgw")
+ground_state = NodePath("../Grounded")
+jump_state = NodePath("../Jumping")
 
-[node name="ComboTimer" type="ProgressBar" parent="ComboUI"]
-visible = false
-offset_left = -55.0
-offset_top = -82.0
-offset_right = 56.0
-offset_bottom = -67.0
-show_percentage = false
+[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "ground_state")]
+script = ExtResource("6_5x1mg")
+fall_state = NodePath("../Falling")
+ground_state = NodePath("../Grounded")
 
-[node name="ComboScore" type="Label" parent="ComboUI"]
-visible = false
-offset_left = -19.0
-offset_top = -130.0
-offset_right = 21.0
-offset_bottom = -75.0
-theme_override_font_sizes/font_size = 40
-text = "0"
-horizontal_alignment = 1
+[node name="Camera2D" type="Camera2D" parent="."]

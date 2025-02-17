@@ -19,6 +19,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	Global.player_position = self.global_position
 	state_machine.physics_update(delta)
 	self.move_and_slide()
 

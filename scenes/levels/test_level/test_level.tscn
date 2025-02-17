@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://jrcitq4lln8w"]
+[gd_scene load_steps=8 format=4 uid="uid://c5j0mm2khpjip"]
 
 [ext_resource type="Script" path="res://scenes/levels/test_level/test_level.gd" id="1_2relc"]
 [ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_mk1ml"]
 [ext_resource type="PackedScene" uid="uid://dtq6vbeqppj66" path="res://scenes/agents/player/player.tscn" id="3_li6si"]
+[ext_resource type="PackedScene" uid="uid://vuhd45v337cf" path="res://scenes/agents/enemy/slime/slime.tscn" id="4_yvxfr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oewph"]
 texture = ExtResource("2_mk1ml")
@@ -28,7 +29,7 @@ sources/0 = SubResource("TileSetAtlasSource_oewph")
 script = ExtResource("1_2relc")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAaAAsAAAAAAAAAAAAbAAsAAAAAAAAAAAAcAAsAAAAAAAAAAAAdAAsAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAGAAsAAAAAAAAAAAAHAAsAAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAAUAAsAAAAAAAAAAAAVAAsAAAAAAAAAAAAWAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAaAAsAAAAAAAAAAAAbAAsAAAAAAAAAAAAcAAsAAAAAAAAAAAAdAAsAAAAAAAAAAAAcAAoAAAAAAAAAAAAdAAoAAAABAAAAAAAWAAoAAAAAAAAAAAAXAAoAAAABAAAAAAAGAAoAAAAAAAAAAAAHAAoAAAABAAAAAAAEAAoAAAAAAAAAAAAFAAoAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_djjf0")
 
 [node name="Player" parent="." instance=ExtResource("3_li6si")]
@@ -45,5 +46,8 @@ shape = SubResource("RectangleShape2D_1fyps")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelSwitcher"]
 texture = ExtResource("2_mk1ml")
+
+[node name="Slime" parent="." instance=ExtResource("4_yvxfr")]
+position = Vector2(1019, 650)
 
 [connection signal="body_entered" from="LevelSwitcher" to="." method="_on_level_switcher_body_entered"]

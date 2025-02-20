@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=9 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_3ph14"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scenes/agents/player/states/grounded.gd" id="4_mi3h8"]
 [ext_resource type="Script" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
 [ext_resource type="Script" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
+[ext_resource type="Script" path="res://scenes/agents/player/combo_manager/combo_manager.gd" id="7_l44bw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
 size = Vector2(128, 128)
@@ -40,3 +41,8 @@ fall_state = NodePath("../Falling")
 ground_state = NodePath("../Grounded")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ComboManager" type="Node" parent="."]
+script = ExtResource("7_l44bw")
+
+[node name="Timer" type="Timer" parent="ComboManager"]

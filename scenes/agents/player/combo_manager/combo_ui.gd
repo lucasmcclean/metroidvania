@@ -9,9 +9,6 @@ var comboScore: int
 func _ready() -> void:
 	comboTimerDisplay.max_value = comboTimer.wait_time
 	
-	# Just for testing system
-	Combo.add_score(1)
-	Combo.add_time(2)
 
 func _process(_delta: float) -> void:
 	comboScore = Combo.score

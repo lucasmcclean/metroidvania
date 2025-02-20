@@ -55,3 +55,10 @@ func unpause() -> void:
 func _on_timer_timeout() -> void:
 	score = 0
 	score_update.emit(score)
+	print("this is working")
+
+
+func _on_combo_ui_test() -> void:
+	add_score(2)
+	add_time(2)
+	

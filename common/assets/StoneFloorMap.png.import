@@ -3,15 +3,11 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brhggptqsjtf5"
-path="res://.godot/imported/StoneFloorMap.png-d05c20f13fc4abb1d6ba1ce4d0846a1e.ctex"
-metadata={
-"vram_texture": false
-}
+valid=false
 
 [deps]
 
-source_file="res://scenes/tilemap/StoneFloorMap.png"
-dest_files=["res://.godot/imported/StoneFloorMap.png-d05c20f13fc4abb1d6ba1ce4d0846a1e.ctex"]
+source_file="res://common/assets/StoneFloorMap.png"
 
 [params]
 

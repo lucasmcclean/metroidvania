@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=10 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_3ph14"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
 [ext_resource type="Script" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
 [ext_resource type="Script" path="res://scenes/agents/player/combo_manager/combo_manager.gd" id="7_l44bw"]
+[ext_resource type="Script" path="res://scenes/agents/player/combo_manager/combo_ui.gd" id="8_rkbv8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
 size = Vector2(128, 128)
@@ -46,3 +47,34 @@ ground_state = NodePath("../Grounded")
 script = ExtResource("7_l44bw")
 
 [node name="Timer" type="Timer" parent="ComboManager"]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="ComboUI" type="Control" parent="ComboManager"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_rkbv8")
+
+[node name="ComboTimer" type="ProgressBar" parent="ComboManager/ComboUI"]
+layout_mode = 0
+offset_left = -66.0
+offset_top = -94.0
+offset_right = 69.0
+offset_bottom = -67.0
+show_percentage = false
+
+[node name="ComboScore" type="Label" parent="ComboManager/ComboUI"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -142.0
+offset_right = 20.0
+offset_bottom = -73.0
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="score_update" from="ComboManager" to="ComboManager/ComboUI" method="_on_combo_manager_score_update"]
+[connection signal="timer_update" from="ComboManager" to="ComboManager/ComboUI" method="_on_combo_manager_timer_update"]

@@ -1,19 +1,15 @@
 extends Control
 
 @onready var comboTimerDisplay := $ComboTimer as ProgressBar
-@onready var comboTimer := Combo.timer as Timer
-
 @onready var comboScoreDisplay:= $ComboScore as Label
 var comboScore: int
+var comboTime: int
 
 func _ready() -> void:
-	comboTimerDisplay.max_value = comboTimer.wait_time
+	comboTimerDisplay.max_value = 5 #placeholder
 	
 
 func _process(_delta: float) -> void:
-	comboScore = Combo.score
-	comboTimerDisplay.value = comboTimer.time_left
-	comboScoreDisplay.text = str(comboScore)
 	
 	if (comboScore <= 0):
 		comboScoreDisplay.visible = false
@@ -21,8 +17,18 @@ func _process(_delta: float) -> void:
 	else:
 		comboScoreDisplay.visible = true
 	
-	if (comboTimer.time_left <= 0):
+	if (comboTime <= 0):
 		comboTimerDisplay.visible = false
 		pass
 	else:
 		comboTimerDisplay.visible = true
+
+
+func _on_combo_manager_score_update(newScore: int) -> void:
+	comboScore = newScore
+	comboScoreDisplay.text = str(comboScore)
+
+
+func _on_combo_manager_timer_update(newTime: float) -> void:
+	comboTime = newTime
+	comboTimerDisplay.value = comboTime

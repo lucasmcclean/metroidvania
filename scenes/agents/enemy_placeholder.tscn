@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://jmxusovxdli1"]
+[gd_scene load_steps=2 format=3 uid="uid://djogjryc1qy6l"]
 
-[ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="1_dwt77"]
+[ext_resource type="Texture2D" uid="uid://bv5wmds4y8jxo" path="res://icon.svg" id="1_dwt77"]
 
 [node name="EnemyPlaceholder" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("1_dwt77")

@@ -1,0 +1,30 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dgmstu655nxfy"]
+
+[ext_resource type="Texture2D" uid="uid://psjpygnrepq6" path="res://common/assets/StoneFloorMap.png" id="1_p083a"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lm5or"]
+texture = ExtResource("1_p083a")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(48, 48, -48, 48, -48, -48, 48, -48)
+
+[resource]
+tile_size = Vector2i(96, 96)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_lm5or")

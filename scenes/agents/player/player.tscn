@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
-[ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_3ph14"]
+[ext_resource type="Texture2D" uid="uid://bv5wmds4y8jxo" path="res://icon.svg" id="2_3ph14"]
 [ext_resource type="Script" path="res://scenes/common/state_machine.gd" id="3_yhn0t"]
 [ext_resource type="Script" path="res://scenes/agents/player/states/grounded.gd" id="4_mi3h8"]
 [ext_resource type="Script" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
@@ -15,6 +15,7 @@ collision_layer = 2
 script = ExtResource("1_w40p7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("2_3ph14")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -40,4 +41,4 @@ fall_state = NodePath("../Falling")
 ground_state = NodePath("../Grounded")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.03, 0.03)
+zoom = Vector2(0.8, 0.8)

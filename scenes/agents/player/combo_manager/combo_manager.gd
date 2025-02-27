@@ -59,6 +59,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_combo_ui_test() -> void:
-	add_score(2)
-	add_time(2)
+	add_time(1)
+	add_score(1)
 	
+	print("hi")

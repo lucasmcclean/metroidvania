@@ -1,11 +1,13 @@
 [gd_scene load_steps=7 format=4 uid="uid://cgxhxrwhf8v80"]
 
 [ext_resource type="Script" path="res://scenes/levels/test_level/test_level.gd" id="1_2relc"]
-[ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="2_mk1ml"]
 [ext_resource type="PackedScene" uid="uid://dtq6vbeqppj66" path="res://scenes/agents/player/player.tscn" id="3_li6si"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_72k5g"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ujbx"]
-texture = ExtResource("2_mk1ml")
+texture = SubResource("CompressedTexture2D_72k5g")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -159,7 +161,7 @@ scale = Vector2(5, 5)
 shape = SubResource("RectangleShape2D_hnf35")
 
 [node name="Sprite2D" type="Sprite2D" parent="ZoneSwitcher"]
-texture = ExtResource("2_mk1ml")
+texture = SubResource("CompressedTexture2D_72k5g")
 
 [node name="Player" parent="ZoneSwitcher" instance=ExtResource("3_li6si")]
 position = Vector2(366, -83)

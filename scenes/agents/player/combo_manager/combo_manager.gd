@@ -17,7 +17,7 @@ func _ready() -> void:
 	timer_pause.connect(pause)
 	timer_unpause.connect(unpause)
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	if (score == 15):
 		rage_on.emit()
 

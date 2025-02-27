@@ -26,7 +26,9 @@ func _process(_delta: float) -> void:
 	else:
 		comboTimerDisplay.visible = true
 
-
+#
+#Signals
+#
 func _on_combo_manager_score_update(newScore: int) -> void:
 	comboScore = newScore
 	comboScoreDisplay.text = str(comboScore)

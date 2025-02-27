@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://bhpl07genpbo4"]
 
-[ext_resource type="Texture2D" uid="uid://c6jlfwk2w100g" path="res://icon.svg" id="1_7c0mm"]
+[ext_resource type="Texture2D" uid="uid://bfcw6epakphgr" path="res://icon.svg" id="1_7c0mm"]
 [ext_resource type="Script" path="res://scenes/levels/test_level/test_level.gd" id="2_wosyr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ujbx"]

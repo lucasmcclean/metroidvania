@@ -6,6 +6,10 @@ extends PlayerState
 func enter() -> void:
 	super()
 	player.velocity.y += player.JUMP_VELOCITY
+	if(player.is_attacking):
+		player.animation_player.play("jump_attack")
+	else:
+		player.animation_player.play("jump")
 
 func _check_falling() -> bool:
 	if player.velocity.y >= 0:
@@ -23,7 +27,10 @@ func _check_released_jump() -> bool:
 func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)
 	if player.has_control:
-		player.update_velocity(player.get_input_direction(), delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
+		var input_direction := player.get_input_direction()
+		player.update_facing_direction(input_direction)
+		player.update_velocity(input_direction, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
+		player.check_attack_input()
 	else:
 		player.update_velocity(0, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
 	if _check_falling():

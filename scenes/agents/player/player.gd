@@ -33,7 +33,6 @@ var attack_timer: Timer
 
 func _ready() -> void:
 	state_machine.initialize()
-	var test: Sprite2D = null
 	attack_timer = Timer.new()
 	attack_timer.wait_time = ATTACK_TIME
 	attack_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS

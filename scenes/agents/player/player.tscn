@@ -340,7 +340,6 @@ fall_state = NodePath("../Falling")
 ground_state = NodePath("../Grounded")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
 
 [node name="Attack" type="Area2D" parent="."]
 collision_layer = 4

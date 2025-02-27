@@ -51,14 +51,14 @@ process_callback = 0
 wait_time = 5.0
 one_shot = true
 
-[node name="ComboUI" type="Control" parent="ComboManager"]
+[node name="ComboUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("8_rkbv8")
 
-[node name="ComboTimer" type="ProgressBar" parent="ComboManager/ComboUI"]
+[node name="ComboTimer" type="ProgressBar" parent="ComboUI"]
 layout_mode = 0
 offset_left = -66.0
 offset_top = -94.0
@@ -66,15 +66,21 @@ offset_right = 69.0
 offset_bottom = -67.0
 show_percentage = false
 
-[node name="ComboScore" type="Label" parent="ComboManager/ComboUI"]
+[node name="ComboScore" type="Label" parent="ComboUI"]
 layout_mode = 0
-offset_left = -20.0
+offset_left = -21.0
 offset_top = -142.0
-offset_right = 20.0
+offset_right = 19.0
 offset_bottom = -73.0
 theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 1
 
-[connection signal="score_update" from="ComboManager" to="ComboManager/ComboUI" method="_on_combo_manager_score_update"]
-[connection signal="timer_update" from="ComboManager" to="ComboManager/ComboUI" method="_on_combo_manager_timer_update"]
+[node name="Timer" type="Timer" parent="ComboUI"]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[connection signal="score_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_score_update"]
+[connection signal="timer_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_timer_update"]
+[connection signal="test" from="ComboUI" to="ComboManager" method="_on_combo_ui_test"]

@@ -19,6 +19,7 @@ var _knockback_force: int = -200
 var _is_roaming: bool = true
 # var _player_in_area: bool = false
 
+## Change to animation player regular sprite
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
@@ -72,7 +73,7 @@ func _handle_animation() -> void:
 func _handle_death() -> void:
 	self.queue_free()
 
-
+## TODO: Change to variable
 func _on_direction_timer_timeout() -> void:
 	$DirectionTimer.wait_time = [1.5, 2.0, 2.5].pick_random()
 	if !_is_slime_chase:
@@ -87,7 +88,11 @@ func _on_slime_hitbox_area_entered(_area: Area2D) -> void:
 	## its own damage value rather than there being a global
 	var _damage: int = Global.player_damage
 	## To be implemented once the attack is created
+	
+	
 
+func _on_slime_hit(attacker: Hurtbox) -> void:
+	print($HealthComponent._remaining_hp)
 
 func _on_jump_timer_timeout() -> void:
 	if _is_slime_chase:

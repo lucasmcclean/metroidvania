@@ -1,7 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://vuhd45v337cf"]
+[gd_scene load_steps=36 format=3 uid="uid://vuhd45v337cf"]
 
 [ext_resource type="Script" path="res://scenes/agents/enemy/slime/slime.gd" id="1_w722o"]
 [ext_resource type="Texture2D" uid="uid://rlrm083a5kb" path="res://scenes/agents/enemy/slime/SlimeSprite.png" id="2_41ihk"]
+[ext_resource type="Script" path="res://scenes/common/hitbox.gd" id="3_kh1w8"]
+[ext_resource type="Script" path="res://scenes/common/hurtbox.gd" id="4_gimil"]
+[ext_resource type="Script" path="res://scenes/common/health_component.gd" id="5_rrov1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e65me"]
 atlas = ExtResource("2_41ihk")
@@ -217,7 +220,7 @@ animations = [{
 size = Vector2(100, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p6km3"]
-size = Vector2(102, 81.5)
+size = Vector2(102, 95.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0d7g6"]
 size = Vector2(104, 81.5)
@@ -239,23 +242,40 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_xfs31")
 
 [node name="DirectionTimer" type="Timer" parent="."]
+process_callback = 0
 autostart = true
 
 [node name="JumpTimer" type="Timer" parent="."]
+process_callback = 0
 autostart = true
 
-[node name="SlimeHitbox" type="Area2D" parent="."]
+[node name="SlimeHitbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("3_kh1w8")
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlimeHitbox"]
-position = Vector2(0, 5)
+position = Vector2(0, -2.125)
 shape = SubResource("RectangleShape2D_p6km3")
 
 [node name="SlimeHurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_gimil")
+damage_dealt = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlimeHurtbox"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_0d7g6")
 
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_rrov1")
+max_hp = 10
+
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
-[connection signal="area_entered" from="SlimeHitbox" to="." method="_on_slime_hitbox_area_entered"]
+[connection signal="area_entered" from="SlimeHitbox" to="SlimeHitbox" method="_on_area_entered"]
+[connection signal="got_hit" from="SlimeHitbox" to="." method="_on_slime_hit"]

@@ -1,7 +1,10 @@
 class_name Slime
 extends CharacterBody2D
 
-const _speed = 50
+const GRAVITY: int = 900
+const SPEED: float = 50.0
+const DIRECTION_WAIT_TIMES: Array[float] = [1.5, 2.0, 2.5]
+
 var _is_slime_chase: bool = true
 
 # var _health: int = 10
@@ -14,18 +17,21 @@ var _is_dealing_damage: bool = false
 
 var _dir: Vector2
 var _dir_copy: Vector2
-const _gravity = 900
 var _knockback_force: int = -200
 var _is_roaming: bool = true
 # var _player_in_area: bool = false
 
 ## Change to animation player regular sprite
-@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _sprite := $AnimatedSprite2D as AnimatedSprite2D
+@onready var _jump_timer := $JumpTimer as Timer
+@onready var _direction_timer := $DirectionTimer as Timer
+@onready var _health_component := $HealthComponent as HealthComponent
+
 
 
 func _process(_delta: float) -> void:
 	if !is_on_floor():
-		velocity.y += _gravity * _delta
+		velocity.y += GRAVITY * _delta
 		velocity.x = 0
 	_move(_delta)
 	_handle_animation()
@@ -35,9 +41,9 @@ func _process(_delta: float) -> void:
 func _move(_delta: float) -> void:
 	if !_dead:
 		if !_is_slime_chase:
-			velocity += _dir * _speed * _delta
+			velocity += _dir * SPEED * _delta
 		elif _is_slime_chase and !_taking_damage:
-			$JumpTimer.wait_time = 2
+			_jump_timer.wait_time = 2
 			var _dir_to_player: Vector2 = (Global.player_position - global_position).normalized()
 			if !is_on_floor():
 				velocity.x = _dir_to_player.x * 200
@@ -75,7 +81,7 @@ func _handle_death() -> void:
 
 ## TODO: Change to variable
 func _on_direction_timer_timeout() -> void:
-	$DirectionTimer.wait_time = [1.5, 2.0, 2.5].pick_random()
+	_direction_timer.wait_time = DIRECTION_WAIT_TIMES.pick_random()
 	if !_is_slime_chase:
 		_dir_copy = _dir
 		_dir = [Vector2.RIGHT, Vector2.LEFT].pick_random()
@@ -92,7 +98,7 @@ func _on_slime_hitbox_area_entered(_area: Area2D) -> void:
 	
 
 func _on_slime_hit(attacker: Hurtbox) -> void:
-	print($HealthComponent._remaining_hp)
+	print(_health_component._remaining_hp)
 
 func _on_jump_timer_timeout() -> void:
 	if _is_slime_chase:

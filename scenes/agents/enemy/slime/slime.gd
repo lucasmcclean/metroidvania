@@ -1,8 +1,12 @@
 class_name Slime
 extends CharacterBody2D
 
-const _speed = 50
-var _is_slime_chase: bool = false
+
+const GRAVITY: int = 900
+const SPEED: float = 50.0
+const DIRECTION_WAIT_TIMES: Array[float] = [1.5, 2.0, 2.5]
+
+var _is_slime_chase: bool = true
 
 # var _health: int = 10
 # var _health_max: int = 80
@@ -20,7 +24,11 @@ var _is_roaming: bool = true
 # var _player_in_area: bool = false
 
 ## Change to animation player regular sprite
-@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _sprite := $AnimatedSprite2D as AnimatedSprite2D
+@onready var _jump_timer := $JumpTimer as Timer
+@onready var _direction_timer := $DirectionTimer as Timer
+@onready var _health_component := $HealthComponent as HealthComponent
+
 
 
 func _process(_delta: float) -> void:
@@ -40,7 +48,22 @@ func _process(_delta: float) -> void:
 
 
 func _move(_delta: float) -> void:
-	if _dead:
+	if !_dead:
+		if !_is_slime_chase:
+			velocity += _dir * SPEED * _delta
+		elif _is_slime_chase and !_taking_damage:
+			_jump_timer.wait_time = 2
+			var _dir_to_player: Vector2 = (Global.player_position - global_position).normalized()
+			if !is_on_floor():
+				velocity.x = _dir_to_player.x * 200
+				_dir.x = abs(velocity.x) / velocity.x
+			else:
+				velocity.x = 0
+		elif _taking_damage:
+			var _knockback_dir: Vector2 = position.direction_to(Global.player_position) * _knockback_force
+			velocity.x = _knockback_dir.x
+		_is_roaming = true
+	elif _dead:
 		velocity.x = 0
 		return
 		
@@ -103,7 +126,7 @@ func _on_slime_hitbox_area_entered(_area: Area2D) -> void:
 	## To be implemented once the attack is created
 
 func _on_slime_hit(attacker: Hurtbox) -> void:
-	print($HealthComponent._remaining_hp)
+	print(_health_component._remaining_hp)
 	var _knockback_dir: Vector2 = position.direction_to(Global.player_position).normalized() * _knockback_force
 	velocity.x = _knockback_dir.x
 	_taking_damage = true;

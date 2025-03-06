@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://8o3ey31dnl7d"]
 
 [ext_resource type="TileSet" uid="uid://dgmstu655nxfy" path="res://common/assets/castle_tileset.tres" id="1_ur1rp"]
-[ext_resource type="Script" path="res://scenes/levels/castle_guard_room/castle_guard_room.gd" id="2_rf4kh"]
+[ext_resource type="Script" uid="uid://bfni464r31q8l" path="res://scenes/levels/castle_guard_room/castle_guard_room.gd" id="2_rf4kh"]
 [ext_resource type="PackedScene" uid="uid://djogjryc1qy6l" path="res://scenes/agents/enemy_placeholder.tscn" id="2_ruxy7"]
 [ext_resource type="PackedScene" uid="uid://c3ln7kty5y37j" path="res://scenes/environment/reward_placeholder.tscn" id="3_cmhvi"]
 [ext_resource type="PackedScene" uid="uid://vuhd45v337cf" path="res://scenes/agents/enemy/slime/slime.tscn" id="5_xos41"]

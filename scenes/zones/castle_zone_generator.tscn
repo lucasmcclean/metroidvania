@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bh8wiexj0hw3x"]
 
-[ext_resource type="Script" path="res://scenes/zones/zone_generator.gd" id="1_3vku6"]
+[ext_resource type="Script" uid="uid://cqg8v7f7hg6i7" path="res://scenes/zones/zone_generator.gd" id="1_3vku6"]
 [ext_resource type="PackedScene" uid="uid://8o3ey31dnl7d" path="res://scenes/levels/castle_guard_room/castle_guard_room.tscn" id="2_kuy6v"]
 
 [node name="ZoneGenerator" type="Node"]

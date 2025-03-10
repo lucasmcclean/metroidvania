@@ -1,6 +1,7 @@
 class_name Slime
 extends CharacterBody2D
 
+
 const GRAVITY: int = 900
 const SPEED: float = 50.0
 const DIRECTION_WAIT_TIMES: Array[float] = [1.5, 2.0, 2.5]
@@ -11,7 +12,8 @@ var _taking_damage: bool = false
 var _is_dealing_damage: bool = false
 var _dir: Vector2
 var _dir_copy: Vector2
-var _knockback_force: int = -200
+const _gravity = 900
+var _knockback_force: int = -800
 var _is_roaming: bool = true
 
 ## Change to animation player regular sprite
@@ -23,9 +25,16 @@ var _is_roaming: bool = true
 
 
 func _process(_delta: float) -> void:
+	Global.slime_position = self.global_position
 	if !is_on_floor():
-		velocity.y += GRAVITY * _delta
-		velocity.x = 0
+		velocity.y += _gravity * _delta
+	
+	if _dead:
+		velocity.y += _gravity * _delta
+		_handle_animation()
+		
+	
+	_decide_behaivor()
 	_move(_delta)
 	_handle_animation()
 	move_and_slide()
@@ -49,6 +58,26 @@ func _move(_delta: float) -> void:
 		_is_roaming = true
 	elif _dead:
 		velocity.x = 0
+		return
+		
+	if is_on_floor() and _taking_damage:
+		velocity.x *= pow(0.05, _delta)
+
+	if !_is_slime_chase and !_taking_damage:
+		$JumpTimer.wait_time = 1
+		if !is_on_floor():
+			velocity.x = _dir.x * 200
+		else:
+			velocity.x = 0
+	elif _is_slime_chase and !_taking_damage:
+		$JumpTimer.wait_time = 2
+		var _dir_to_player: Vector2 = (Global.player_position - global_position).normalized()
+		if !is_on_floor():
+			velocity.x = _dir_to_player.x * 200
+			_dir.x = abs(velocity.x) / velocity.x
+		else:
+			velocity.x = 0
+	_is_roaming = true
 
 
 func _handle_animation() -> void:
@@ -91,9 +120,13 @@ func _on_slime_hitbox_area_entered(_area: Area2D) -> void:
 	var _damage: int = Global.player_damage
 	## To be implemented once the attack is created
 
-
 func _on_slime_hit(attacker: Hurtbox) -> void:
 	print(_health_component._remaining_hp)
+	var _knockback_dir: Vector2 = position.direction_to(Global.player_position).normalized() * _knockback_force
+	velocity.x = _knockback_dir.x
+	_taking_damage = true;
+	if $HealthComponent._remaining_hp == 0:
+		_dead = true
 
 
 func _on_jump_timer_timeout() -> void:
@@ -101,3 +134,15 @@ func _on_jump_timer_timeout() -> void:
 		velocity.y = -600
 		var _dir_to_player: Vector2 = (Global.player_position - global_position).normalized()
 		velocity.x = _dir_to_player.x * 100
+	if !_is_slime_chase:
+		velocity.y = -300
+
+
+func _decide_behaivor() -> void:
+	var _dir_to_player: float = (Global.player_position - global_position).length()
+	if _dir_to_player < 500:
+		_is_slime_chase = true
+		_is_roaming = false
+	else:
+		_is_slime_chase = false
+		_is_roaming = true

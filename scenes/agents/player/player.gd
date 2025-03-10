@@ -7,6 +7,7 @@ const JUMP_VELOCITY: float = -1500.0
 const JUMP_BUFFER_TIME: float = 0.083333
 const FALLING_GRAVITY_SCALE: float = 1.3
 const ATTACK_TIME: float = 0.15
+const KNOCKBACK_FORCE: float = -200
 const ATTACK_ANIMATIONS: Dictionary = {
 	"idle": "idle_attack",
 	"walk": "walk_attack",

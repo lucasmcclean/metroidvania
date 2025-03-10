@@ -1,8 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=20 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" uid="uid://jnekhd4aouir" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://ycjvb246g775" path="res://scenes/agents/player/player.png" id="2_pmbbr"]
-
 [ext_resource type="Script" uid="uid://bym1ghh3x6lsd" path="res://scenes/common/state_machine.gd" id="3_yhn0t"]
 [ext_resource type="Script" uid="uid://bdj7jhd6b8e86" path="res://scenes/agents/player/states/grounded.gd" id="4_mi3h8"]
 [ext_resource type="Script" uid="uid://cqymp82l6jmns" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
@@ -13,7 +12,7 @@
 size = Vector2(70, 145)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0ym0"]
-size = Vector2(135, 150)
+size = Vector2(96, 61)
 
 [sub_resource type="Animation" id="Animation_e14y4"]
 length = 0.001
@@ -302,9 +301,6 @@ _data = {
 &"walk_attack": SubResource("Animation_dll3k")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4tqr4"]
-size = Vector2(59, 158)
-
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 129
@@ -323,16 +319,6 @@ shape = SubResource("RectangleShape2D_ucwrr")
 libraries = {
 &"": SubResource("AnimationLibrary_pawm5")
 }
-
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
-monitorable = false
-script = ExtResource("3_ubqti")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-8.5, 7)
-shape = SubResource("RectangleShape2D_4tqr4")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_yhn0t")
@@ -366,5 +352,3 @@ damage_dealt = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
 position = Vector2(65, -16.5)
 shape = SubResource("RectangleShape2D_h0ym0")
-
-[connection signal="got_hit" from="Hitbox" to="." method="_on_hitbox_got_hit"]

@@ -120,12 +120,12 @@ func _on_slime_hitbox_area_entered(_area: Area2D) -> void:
 	var _damage: int = Global.player_damage
 	## To be implemented once the attack is created
 
-func _on_slime_hit(attacker: Hurtbox) -> void:
+func _on_slime_hit(_attacker: Hurtbox) -> void:
 	print(_health_component._remaining_hp)
 	var _knockback_dir: Vector2 = position.direction_to(Global.player_position).normalized() * _knockback_force
 	velocity.x = _knockback_dir.x
 	_taking_damage = true;
-	if $HealthComponent._remaining_hp == 0:
+	if _health_component._remaining_hp == 0:
 		_dead = true
 
 

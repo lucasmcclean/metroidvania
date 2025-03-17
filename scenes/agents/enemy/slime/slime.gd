@@ -1,6 +1,7 @@
 class_name Slime
 extends CharacterBody2D
 
+signal died()
 
 const GRAVITY: int = 900
 const SPEED: float = 50.0
@@ -21,6 +22,7 @@ var _is_roaming: bool = true
 @onready var _jump_timer := $JumpTimer as Timer
 @onready var _direction_timer := $DirectionTimer as Timer
 @onready var _health_component := $HealthComponent as HealthComponent
+
 
 
 
@@ -96,6 +98,8 @@ func _handle_animation() -> void:
 		_sprite.play("death")
 		await get_tree().create_timer(1.0, true, true).timeout
 		_handle_death()
+		died.emit()
+		
 
 
 func _handle_death() -> void:

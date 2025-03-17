@@ -10,7 +10,7 @@ var comboScore: int
 func _ready() -> void:
 	comboTimerDisplay.max_value = 5 #placeholder
 	
-	test.emit()
+	#test.emit()
 
 func _process(_delta: float) -> void:
 	

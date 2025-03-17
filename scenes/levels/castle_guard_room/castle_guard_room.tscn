@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://8o3ey31dnl7d"]
+[gd_scene load_steps=5 format=4 uid="uid://8o3ey31dnl7d"]
 
 [ext_resource type="TileSet" uid="uid://dgmstu655nxfy" path="res://common/assets/castle_tileset.tres" id="1_ur1rp"]
 [ext_resource type="Script" uid="uid://bfni464r31q8l" path="res://scenes/levels/castle_guard_room/castle_guard_room.gd" id="2_rf4kh"]
-[ext_resource type="PackedScene" uid="uid://djogjryc1qy6l" path="res://scenes/agents/enemy_placeholder.tscn" id="2_ruxy7"]
-[ext_resource type="PackedScene" uid="uid://c3ln7kty5y37j" path="res://scenes/environment/reward_placeholder.tscn" id="3_cmhvi"]
+[ext_resource type="PackedScene" uid="uid://dtq6vbeqppj66" path="res://scenes/agents/player/player.tscn" id="4_4a1f3"]
 [ext_resource type="PackedScene" uid="uid://vuhd45v337cf" path="res://scenes/agents/enemy/slime/slime.tscn" id="5_xos41"]
 
 [node name="CastleGuardRoom" type="TileMapLayer"]
@@ -15,31 +14,14 @@ limit_bottom = 6
 conn_end_x = 106
 conn_end_y = 6
 
-[node name="EnemyPlaceholder" parent="." instance=ExtResource("2_ruxy7")]
-position = Vector2(2179, 43)
-
-[node name="EnemyPlaceholder2" parent="." instance=ExtResource("2_ruxy7")]
-position = Vector2(6069, -869)
-
-[node name="EnemyPlaceholder3" parent="." instance=ExtResource("2_ruxy7")]
-position = Vector2(6697, -855)
-
-[node name="EnemyPlaceholder4" parent="." instance=ExtResource("2_ruxy7")]
-position = Vector2(7182, 253)
-
-[node name="EnemyPlaceholder5" parent="." instance=ExtResource("2_ruxy7")]
-position = Vector2(8305, 396)
-
-[node name="RewardPlaceholder" parent="." instance=ExtResource("3_cmhvi")]
-position = Vector2(8635, 486)
-
-[node name="RewardPlaceholder2" parent="." instance=ExtResource("3_cmhvi")]
-position = Vector2(9986, -984)
-
-[node name="RewardPlaceholder3" parent="." instance=ExtResource("3_cmhvi")]
-position = Vector2(3955, -109)
-
 [node name="Slime" parent="." instance=ExtResource("5_xos41")]
 position = Vector2(1604, 98)
 collision_layer = 0
 collision_mask = 1
+
+[node name="Player" parent="." instance=ExtResource("4_4a1f3")]
+position = Vector2(103, -96)
+
+[connection signal="died" from="Slime" to="Player/ComboManager" method="_on_slime_died"]
+
+[editable path="Player"]

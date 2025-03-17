@@ -11,4 +11,4 @@ func _process(delta: float) -> void:
 	pass
 
 func _slime_jump() -> void:
-	
+	pass

@@ -1,17 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=22 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" uid="uid://jnekhd4aouir" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://ycjvb246g775" path="res://scenes/agents/player/player.png" id="2_pmbbr"]
-[ext_resource type="Script" uid="uid://bym1ghh3x6lsd" path="res://scenes/common/state_machine.gd" id="3_yhn0t"]
+[ext_resource type="Script" uid="uid://bfjbmougxllux" path="res://scenes/common/state_machine.gd" id="3_yhn0t"]
 [ext_resource type="Script" uid="uid://bdj7jhd6b8e86" path="res://scenes/agents/player/states/grounded.gd" id="4_mi3h8"]
 [ext_resource type="Script" uid="uid://cqymp82l6jmns" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
 [ext_resource type="Script" uid="uid://wweqk0t5lehe" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
-[ext_resource type="Script" uid="uid://cefp3sej3xlyg" path="res://scenes/common/hurtbox.gd" id="7_18srt"]
+[ext_resource type="Script" uid="uid://buyap6xmiwhcl" path="res://scenes/common/hurtbox.gd" id="7_18srt"]
 [ext_resource type="Script" uid="uid://be7yyjoxxqjap" path="res://scenes/agents/player/combo_manager/combo_manager.gd" id="7_l44bw"]
 [ext_resource type="Script" uid="uid://dwcg3c8qeb15b" path="res://scenes/agents/player/combo_manager/combo_ui.gd" id="8_rkbv8"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_72k5g"]
-load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
 size = Vector2(70, 145)
@@ -384,10 +381,6 @@ process_callback = 0
 wait_time = 5.0
 one_shot = true
 
-[connection signal="score_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_score_update"]
-[connection signal="timer_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_timer_update"]
-[connection signal="timeout" from="ComboManager/Timer" to="ComboManager" method="_on_timer_timeout"]
-[connection signal="test" from="ComboUI" to="ComboManager" method="_on_combo_ui_test"]
 [node name="Attack" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 0
@@ -399,3 +392,8 @@ damage_dealt = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
 position = Vector2(65, -16.5)
 shape = SubResource("RectangleShape2D_h0ym0")
+
+[connection signal="score_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_score_update"]
+[connection signal="timer_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_timer_update"]
+[connection signal="timeout" from="ComboManager/Timer" to="ComboManager" method="_on_timer_timeout"]
+[connection signal="test" from="ComboUI" to="ComboManager" method="_on_combo_ui_test"]

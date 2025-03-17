@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bh8wiexj0hw3x"]
 
 [ext_resource type="Script" uid="uid://4kgtsngm3ng0" path="res://scenes/zones/zone_generator/zone_generator.gd" id="1_5kgeg"]
-[ext_resource type="PackedScene" uid="uid://c7hqd6lyok27u" path="res://scenes/levels/test_level/test_level.tscn" id="2_jg522"]
+[ext_resource type="PackedScene" uid="uid://c5j0mm2khpjip" path="res://scenes/levels/test_level/test_level.tscn" id="2_jg522"]
 [ext_resource type="PackedScene" uid="uid://bhpl07genpbo4" path="res://scenes/levels/test_level_2/test_level_2.tscn" id="3_cs8ve"]
 
 [node name="ZoneGenerator" type="Node"]

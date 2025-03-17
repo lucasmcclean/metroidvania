@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://dgmstu655nxfy"]
 
-[ext_resource type="Texture2D" uid="uid://psjpygnrepq6" path="res://common/assets/StoneFloorMap.png" id="1_p083a"]
+[ext_resource type="Texture2D" uid="uid://cvagn77wiu3c" path="res://common/assets/StoneFloorMap.png" id="1_p083a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lm5or"]
 texture = ExtResource("1_p083a")

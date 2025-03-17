@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://v6bi48dnkr13" path="res://scenes/agents/enemy/slime/slime.gd" id="1_w722o"]
 [ext_resource type="Texture2D" uid="uid://rlrm083a5kb" path="res://scenes/agents/enemy/slime/SlimeSprite.png" id="2_41ihk"]
 [ext_resource type="Script" uid="uid://d20oem0713j18" path="res://scenes/common/hitbox.gd" id="3_kh1w8"]
-[ext_resource type="Script" uid="uid://cefp3sej3xlyg" path="res://scenes/common/hurtbox.gd" id="4_gimil"]
+[ext_resource type="Script" uid="uid://buyap6xmiwhcl" path="res://scenes/common/hurtbox.gd" id="4_gimil"]
 [ext_resource type="Script" uid="uid://cawivl6f8f8yr" path="res://scenes/common/health_component.gd" id="5_rrov1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e65me"]

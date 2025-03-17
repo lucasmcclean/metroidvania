@@ -66,4 +66,8 @@ func _on_timer_timeout() -> void:
 func _on_combo_ui_test() -> void:
 	add_time(1)
 	add_score(1)
-	
+
+
+func _on_slime_died() -> void:
+	add_time(1)
+	add_score(2)

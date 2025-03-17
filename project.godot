@@ -13,7 +13,6 @@ config_version=5
 config/name="Metroidvania"
 run/main_scene="res://scenes/_game_launcher/game_launcher.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
 
 [audio]
 

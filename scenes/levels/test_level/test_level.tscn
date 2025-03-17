@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://c5j0mm2khpjip"]
 
-[ext_resource type="Texture2D" uid="uid://bv5wmds4y8jxo" path="res://icon.svg" id="2_mk1ml"]
+[ext_resource type="Texture2D" uid="uid://bfcw6epakphgr" path="res://icon.svg" id="2_mk1ml"]
 [ext_resource type="PackedScene" uid="uid://dtq6vbeqppj66" path="res://scenes/agents/player/player.tscn" id="3_li6si"]
 [ext_resource type="PackedScene" uid="uid://vuhd45v337cf" path="res://scenes/agents/enemy/slime/slime.tscn" id="4_yvxfr"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dolrmqtk1f4t6"]
 
-[ext_resource type="Script" uid="uid://1b35gkqdhb25" path="res://scenes/_game_launcher/game_launcher.gd" id="1_tub3c"]
-[ext_resource type="PackedScene" uid="uid://bh8wiexj0hw3x" path="res://scenes/zones/zone_generator/zone_generator.tscn" id="2_o5pwc"]
+[ext_resource type="Script" uid="uid://b2rp5vumg07vy" path="res://scenes/_game_launcher/game_launcher.gd" id="1_tub3c"]
+[ext_resource type="PackedScene" uid="uid://bh8wiexj0hw3x" path="res://scenes/zones/castle_zone_generator.tscn" id="2_5ytif"]
 
 [node name="GameLauncher" type="Node"]
 script = ExtResource("1_tub3c")

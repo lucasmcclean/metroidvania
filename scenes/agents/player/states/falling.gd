@@ -14,6 +14,14 @@ func _ready() -> void:
 	add_child(_jump_buffer_timer)
 
 
+func enter() -> void:
+	super()
+	if(player.is_attacking):
+		player.animation_player.play("fall_attack")
+	else:
+		player.animation_player.play("fall")
+
+
 func _check_jumping() -> void:
 	if Input.is_action_just_pressed("jump"):
 		_jump_buffer_timer.start()
@@ -30,8 +38,11 @@ func _check_hit_ground() -> void:
 func physics_update(delta: float) -> void:
 	player.apply_gravity_scaled(delta, player.FALLING_GRAVITY_SCALE)
 	if player.has_control:
-		player.update_velocity(player.get_input_direction(), delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
+		var input_direction := player.get_input_direction()
+		player.update_facing_direction(input_direction)
+		player.update_velocity(input_direction, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
 		_check_jumping()
+		player.check_attack_input()
 	else:
 		player.update_velocity(0, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
 	_check_hit_ground()

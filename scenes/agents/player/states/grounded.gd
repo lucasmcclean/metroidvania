@@ -33,7 +33,20 @@ func _check_falling() -> bool:
 func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)
 	if player.has_control:
-		player.update_velocity(player.get_input_direction(), delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
+		var input_direction := player.get_input_direction()
+		player.update_facing_direction(input_direction)
+		if input_direction != 0:
+			if(player.is_attacking):
+				player.animation_player.play("walk_attack")
+			else:
+				player.animation_player.play("walk")
+		else:
+			if(player.is_attacking):
+				player.animation_player.play("idle_attack")
+			else:
+				player.animation_player.play("idle")
+		player.update_velocity(input_direction, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
+		player.check_attack_input()
 		if _check_jumping():
 			return
 	else:

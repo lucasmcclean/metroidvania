@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=21 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" uid="uid://jnekhd4aouir" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://ycjvb246g775" path="res://scenes/agents/player/player.png" id="2_pmbbr"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://wweqk0t5lehe" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
 [ext_resource type="Script" uid="uid://buyap6xmiwhcl" path="res://scenes/common/hurtbox.gd" id="7_18srt"]
 [ext_resource type="Script" uid="uid://be7yyjoxxqjap" path="res://scenes/agents/player/combo_manager/combo_manager.gd" id="7_l44bw"]
-[ext_resource type="Script" uid="uid://dwcg3c8qeb15b" path="res://scenes/agents/player/combo_manager/combo_ui.gd" id="8_rkbv8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
 size = Vector2(70, 145)
@@ -322,6 +321,20 @@ libraries = {
 &"": SubResource("AnimationLibrary_pawm5")
 }
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Attack" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("7_18srt")
+damage_dealt = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+position = Vector2(65, -16.5)
+shape = SubResource("RectangleShape2D_h0ym0")
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_yhn0t")
 initial_state = NodePath("Grounded")
@@ -341,33 +354,18 @@ script = ExtResource("6_5x1mg")
 fall_state = NodePath("../Falling")
 ground_state = NodePath("../Grounded")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="ComboManager" type="Node" parent="."]
+[node name="ComboManager" type="Node2D" parent="."]
+top_level = true
 script = ExtResource("7_l44bw")
 
-[node name="Timer" type="Timer" parent="ComboManager"]
-process_callback = 0
-wait_time = 5.0
-one_shot = true
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
-remote_path = NodePath("../ComboUI")
-update_rotation = false
-update_scale = false
-
-[node name="ComboUI" type="Node2D" parent="."]
-top_level = true
-script = ExtResource("8_rkbv8")
-
-[node name="ComboTimer" type="ProgressBar" parent="ComboUI"]
+[node name="ComboTimer" type="ProgressBar" parent="ComboManager"]
 offset_left = -66.0
 offset_top = -94.0
 offset_right = 69.0
 offset_bottom = -67.0
 show_percentage = false
 
-[node name="ComboScore" type="Label" parent="ComboUI"]
+[node name="ComboScore" type="Label" parent="ComboManager"]
 offset_left = -21.0
 offset_top = -142.0
 offset_right = 19.0
@@ -376,23 +374,14 @@ theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 1
 
-[node name="Timer" type="Timer" parent="ComboUI"]
+[node name="Timer" type="Timer" parent="ComboManager"]
 process_callback = 0
 wait_time = 5.0
 one_shot = true
 
-[node name="Attack" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 0
-monitoring = false
-monitorable = false
-script = ExtResource("7_18srt")
-damage_dealt = 1
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../ComboManager")
+update_rotation = false
+update_scale = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
-position = Vector2(65, -16.5)
-shape = SubResource("RectangleShape2D_h0ym0")
-
-[connection signal="score_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_score_update"]
-[connection signal="timer_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_timer_update"]
 [connection signal="timeout" from="ComboManager/Timer" to="ComboManager" method="_on_timer_timeout"]

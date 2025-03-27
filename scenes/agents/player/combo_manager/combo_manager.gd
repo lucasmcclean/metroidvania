@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 signal score_update(newScore: int)
 signal timer_update(newTime: float)
@@ -9,15 +9,33 @@ signal rage_off()
 
 # Max seconds a combo can be
 # Can be upgraded?
-@export var timeLimit: float = 5.00
+@export var timeLimit: float = 10
 @onready var timer := $Timer as Timer
 var score: int = 0
 
+@onready var comboTimerDisplay := $ComboTimer as ProgressBar
+@onready var comboScoreDisplay:= $ComboScore as Label
+
 func _ready() -> void:
+	comboTimerDisplay.max_value = timeLimit
+	
 	timer_pause.connect(pause)
 	timer_unpause.connect(unpause)
 
 func _physics_process(_delta) -> void:
+	comboTimerDisplay.value = timer.time_left
+	comboScoreDisplay.text = str(score)
+	
+	if (score <= 0):
+		comboScoreDisplay.visible = false
+	else:
+		comboScoreDisplay.visible = true
+	
+	if (timer.time_left <= 0):
+		comboTimerDisplay.visible = false
+	else:
+		comboTimerDisplay.visible = true
+	
 	if (score == 15):
 		rage_on.emit()
 

@@ -24,6 +24,10 @@ var _is_roaming: bool = true
 @onready var _health_component := $HealthComponent as HealthComponent
 #Used groups to easily get player from scene
 @onready var player := get_tree().get_first_node_in_group("player")
+@export var scoreReward : int = 1
+@export var timeReward : int = 3
+
+
 
 func _ready() -> void:
 	if player:
@@ -136,7 +140,7 @@ func _on_slime_hit(_attacker: Hurtbox) -> void:
 	if _health_component._remaining_hp == 0 and !_dead:
 		_dead = true
 		print("dead")
-		give_combo.emit(1,1)
+		give_combo.emit(scoreReward,timeReward)
 
 
 func _on_jump_timer_timeout() -> void:

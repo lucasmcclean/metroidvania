@@ -14,14 +14,14 @@ limit_bottom = 6
 conn_end_x = 106
 conn_end_y = 6
 
+[node name="Slime2" parent="." instance=ExtResource("5_xos41")]
+position = Vector2(372, -66)
+
+[node name="Slime3" parent="." instance=ExtResource("5_xos41")]
+position = Vector2(2331, 134)
+
 [node name="Slime" parent="." instance=ExtResource("5_xos41")]
-position = Vector2(1604, 98)
-collision_layer = 0
-collision_mask = 1
+position = Vector2(1759, 122)
 
 [node name="Player" parent="." instance=ExtResource("4_4a1f3")]
-position = Vector2(103, -96)
-
-[connection signal="died" from="Slime" to="Player/ComboManager" method="_on_slime_died"]
-
-[editable path="Player"]
+position = Vector2(162, -90)

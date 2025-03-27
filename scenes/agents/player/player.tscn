@@ -303,7 +303,7 @@ _data = {
 &"walk_attack": SubResource("Animation_dll3k")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 collision_mask = 129
 script = ExtResource("1_w40p7")
@@ -351,15 +351,16 @@ process_callback = 0
 wait_time = 5.0
 one_shot = true
 
-[node name="ComboUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../ComboUI")
+update_rotation = false
+update_scale = false
+
+[node name="ComboUI" type="Node2D" parent="."]
+top_level = true
 script = ExtResource("8_rkbv8")
 
 [node name="ComboTimer" type="ProgressBar" parent="ComboUI"]
-layout_mode = 0
 offset_left = -66.0
 offset_top = -94.0
 offset_right = 69.0
@@ -367,7 +368,6 @@ offset_bottom = -67.0
 show_percentage = false
 
 [node name="ComboScore" type="Label" parent="ComboUI"]
-layout_mode = 0
 offset_left = -21.0
 offset_top = -142.0
 offset_right = 19.0
@@ -396,4 +396,3 @@ shape = SubResource("RectangleShape2D_h0ym0")
 [connection signal="score_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_score_update"]
 [connection signal="timer_update" from="ComboManager" to="ComboUI" method="_on_combo_manager_timer_update"]
 [connection signal="timeout" from="ComboManager/Timer" to="ComboManager" method="_on_timer_timeout"]
-[connection signal="test" from="ComboUI" to="ComboManager" method="_on_combo_ui_test"]

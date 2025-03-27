@@ -1,7 +1,7 @@
 class_name Slime
 extends CharacterBody2D
 
-signal died()
+signal give_combo(score: int, time: int)
 
 const GRAVITY: int = 900
 const SPEED: float = 50.0
@@ -22,7 +22,13 @@ var _is_roaming: bool = true
 @onready var _jump_timer := $JumpTimer as Timer
 @onready var _direction_timer := $DirectionTimer as Timer
 @onready var _health_component := $HealthComponent as HealthComponent
+#Used groups to easily get player from scene
+@onready var player := get_tree().get_first_node_in_group("player")
 
+func _ready() -> void:
+	if player:
+		var comboManager = player.get_node("ComboManager")
+		give_combo.connect(comboManager.update_combo)
 
 
 
@@ -98,8 +104,6 @@ func _handle_animation() -> void:
 		_sprite.play("death")
 		await get_tree().create_timer(1.0, true, true).timeout
 		_handle_death()
-		died.emit()
-		
 
 
 func _handle_death() -> void:
@@ -129,8 +133,10 @@ func _on_slime_hit(_attacker: Hurtbox) -> void:
 	var _knockback_dir: Vector2 = position.direction_to(Global.player_position).normalized() * _knockback_force
 	velocity.x = _knockback_dir.x
 	_taking_damage = true;
-	if _health_component._remaining_hp == 0:
+	if _health_component._remaining_hp == 0 and !_dead:
 		_dead = true
+		print("dead")
+		give_combo.emit(1,1)
 
 
 func _on_jump_timer_timeout() -> void:

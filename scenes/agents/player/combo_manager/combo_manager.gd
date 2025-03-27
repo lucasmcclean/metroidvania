@@ -10,8 +10,8 @@ signal rage_off()
 # Max seconds a combo can be
 # Can be upgraded?
 @export var timeLimit: float = 5.00
-var score: int = 0
 @onready var timer := $Timer as Timer
+var score: int = 0
 
 func _ready() -> void:
 	timer_pause.connect(pause)
@@ -55,19 +55,13 @@ func pause() -> void:
 func unpause() -> void:
 	timer.paused = false
 
-#
-# Signals
-#
+
 func _on_timer_timeout() -> void:
 	score = 0
 	score_update.emit(score)
 	rage_off.emit()
 
-func _on_combo_ui_test() -> void:
-	add_time(1)
-	add_score(1)
 
-
-func _on_slime_died() -> void:
-	add_time(1)
-	add_score(2)
+func update_combo(score: int, time: int) -> void:
+	add_time(time)
+	add_score(score)

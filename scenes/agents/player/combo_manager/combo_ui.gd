@@ -1,6 +1,5 @@
-extends Control
+extends Node2D
 
-signal test()
 
 @onready var comboTimerDisplay := $ComboTimer as ProgressBar
 @onready var comboScoreDisplay:= $ComboScore as Label
@@ -9,11 +8,8 @@ var comboScore: int
 
 func _ready() -> void:
 	comboTimerDisplay.max_value = 5 #placeholder
-	
-	#test.emit()
 
 func _process(_delta: float) -> void:
-	
 	comboTimerDisplay.value = timer.time_left
 	
 	if (comboScore <= 0):

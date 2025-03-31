@@ -226,7 +226,7 @@ size = Vector2(102, 95.75)
 size = Vector2(104, 81.5)
 
 [node name="Slime" type="CharacterBody2D"]
-collision_mask = 3
+collision_layer = 0
 script = ExtResource("1_w722o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

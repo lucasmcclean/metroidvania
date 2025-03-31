@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dtq6vbeqppj66"]
+[gd_scene load_steps=25 format=3 uid="uid://dtq6vbeqppj66"]
 
 [ext_resource type="Script" uid="uid://jnekhd4aouir" path="res://scenes/agents/player/player.gd" id="1_w40p7"]
 [ext_resource type="Texture2D" uid="uid://ycjvb246g775" path="res://scenes/agents/player/player.png" id="2_pmbbr"]
@@ -7,6 +7,10 @@
 [ext_resource type="Script" uid="uid://cqymp82l6jmns" path="res://scenes/agents/player/states/falling.gd" id="5_snrgw"]
 [ext_resource type="Script" uid="uid://wweqk0t5lehe" path="res://scenes/agents/player/states/jumping.gd" id="6_5x1mg"]
 [ext_resource type="Script" uid="uid://cefp3sej3xlyg" path="res://scenes/common/hurtbox.gd" id="7_18srt"]
+[ext_resource type="Script" uid="uid://bueu5nnyrqsey" path="res://scenes/agents/player/states/knockback.gd" id="7_ujf17"]
+[ext_resource type="Script" uid="uid://d20oem0713j18" path="res://scenes/common/hitbox.gd" id="8_deemb"]
+[ext_resource type="Script" uid="uid://c00y1bp8dowuj" path="res://scenes/agents/player/states/stunned.gd" id="8_peglp"]
+[ext_resource type="Script" uid="uid://cawivl6f8f8yr" path="res://scenes/common/health_component.gd" id="9_tige2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucwrr"]
 size = Vector2(70, 145)
@@ -301,6 +305,9 @@ _data = {
 &"walk_attack": SubResource("Animation_dll3k")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deemb"]
+size = Vector2(42, 142)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 129
@@ -324,20 +331,33 @@ libraries = {
 script = ExtResource("3_yhn0t")
 initial_state = NodePath("Grounded")
 
-[node name="Grounded" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "jump_state")]
+[node name="Grounded" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "stunned_state")]
 script = ExtResource("4_mi3h8")
 fall_state = NodePath("../Falling")
 jump_state = NodePath("../Jumping")
+stunned_state = NodePath("../Stunned")
 
-[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("ground_state", "jump_state")]
+[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("ground_state", "jump_state", "knockback_state")]
 script = ExtResource("5_snrgw")
 ground_state = NodePath("../Grounded")
 jump_state = NodePath("../Jumping")
+knockback_state = NodePath("../Knockback")
 
-[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "ground_state")]
+[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "ground_state", "knockback_state")]
 script = ExtResource("6_5x1mg")
 fall_state = NodePath("../Falling")
 ground_state = NodePath("../Grounded")
+knockback_state = NodePath("../Knockback")
+
+[node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("stunned_state")]
+script = ExtResource("7_ujf17")
+stunned_state = NodePath("../Stunned")
+metadata/_custom_type_script = "uid://dfyqqcehf3nou"
+
+[node name="Stunned" type="Node" parent="StateMachine" node_paths=PackedStringArray("ground_state")]
+script = ExtResource("8_peglp")
+ground_state = NodePath("../Grounded")
+metadata/_custom_type_script = "uid://dfyqqcehf3nou"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -352,3 +372,23 @@ damage_dealt = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
 position = Vector2(65, -16.5)
 shape = SubResource("RectangleShape2D_h0ym0")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("8_deemb")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://d20oem0713j18"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-4, 14)
+shape = SubResource("RectangleShape2D_deemb")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("9_tige2")
+max_hp = 10
+metadata/_custom_type_script = "uid://cawivl6f8f8yr"
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="got_hit" from="Hitbox" to="." method="_on_got_hit"]

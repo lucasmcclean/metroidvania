@@ -2,6 +2,7 @@ extends PlayerState
 
 @export var ground_state: PlayerState
 @export var jump_state: PlayerState
+@export var knockback_state: PlayerKnockbackState
 
 var _jump_buffer_timer: Timer
 
@@ -20,6 +21,10 @@ func enter() -> void:
 		player.animation_player.play("fall_attack")
 	else:
 		player.animation_player.play("fall")
+
+
+func exit() -> void:
+	_jump_buffer_timer.stop()
 
 
 func _check_jumping() -> void:
@@ -46,3 +51,8 @@ func physics_update(delta: float) -> void:
 	else:
 		player.update_velocity(0, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
 	_check_hit_ground()
+
+
+func handle_hit(attacker: Hurtbox) -> void:
+	knockback_state.last_attacker = attacker
+	state_machine.change_state(knockback_state)

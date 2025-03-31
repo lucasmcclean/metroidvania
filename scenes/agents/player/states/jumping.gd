@@ -2,6 +2,7 @@ extends PlayerState
 
 @export var fall_state: PlayerState
 @export var ground_state: PlayerState
+@export var knockback_state: PlayerKnockbackState
 
 func enter() -> void:
 	super()
@@ -11,11 +12,13 @@ func enter() -> void:
 	else:
 		player.animation_player.play("jump")
 
+
 func _check_falling() -> bool:
 	if player.velocity.y >= 0:
 		state_machine.change_state(fall_state)
 		return true
 	return false
+
 
 func _check_released_jump() -> bool:
 	if Input.is_action_just_released("jump"):
@@ -23,6 +26,7 @@ func _check_released_jump() -> bool:
 		player.velocity.y *= 0.2
 		return true
 	return false
+
 
 func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)
@@ -37,3 +41,8 @@ func physics_update(delta: float) -> void:
 		return
 	if _check_released_jump():
 		return
+
+
+func handle_hit(attacker: Hurtbox) -> void:
+	knockback_state.last_attacker = attacker
+	state_machine.change_state(knockback_state)

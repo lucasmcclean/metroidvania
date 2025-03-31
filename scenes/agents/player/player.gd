@@ -7,14 +7,18 @@ const JUMP_VELOCITY: float = -1500.0
 const JUMP_BUFFER_TIME: float = 0.083333
 const FALLING_GRAVITY_SCALE: float = 1.3
 const ATTACK_TIME: float = 0.15
-const KNOCKBACK_FORCE: float = -200
-const ATTACK_ANIMATIONS: Dictionary = {
+const INVULNERABILITY_TIME: float = 3.0
+const STUN_TIME:float = 0.2
+const POST_KNOCKBACK_STUN_TIME: float = 0.1
+const KNOCKBACK_VELOCITY_X: float = 400.0
+const KNOCKBACK_VELOCITY_Y: float = -800.0
+const ATTACK_ANIMATIONS: Dictionary[String, String] = {
 	"idle": "idle_attack",
 	"walk": "walk_attack",
 	"fall": "fall_attack",
 	"jump": "jump_attack"
 }
-const NON_ATTACK_ANIMATIONS: Dictionary = {
+const NON_ATTACK_ANIMATIONS: Dictionary[String, String] = {
 	"idle_attack": "idle",
 	"walk_attack": "walk",
 	"fall_attack": "fall",
@@ -24,13 +28,16 @@ const NON_ATTACK_ANIMATIONS: Dictionary = {
 var has_control: bool = true
 var facing_direction: float = 1
 var is_attacking: bool = false
+var is_invulnerable: bool = false
 var attack_timer: Timer
+var invulnerability_timer: Timer
 
 @onready var sprite := $Sprite2D as Sprite2D
 @onready var collision := $CollisionShape2D as CollisionShape2D
 @onready var state_machine := $StateMachine as StateMachine
 @onready var animation_player := $AnimationPlayer as AnimationPlayer
 @onready var attack := $Attack as Hurtbox
+@onready var hitbox := $Hitbox as Hitbox
 
 func _ready() -> void:
 	state_machine.initialize()
@@ -41,6 +48,13 @@ func _ready() -> void:
 	attack_timer.autostart = false
 	attack_timer.timeout.connect(_on_attack_finished)
 	add_child(attack_timer)
+	invulnerability_timer = Timer.new()
+	invulnerability_timer.wait_time = INVULNERABILITY_TIME
+	invulnerability_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	invulnerability_timer.one_shot = true
+	invulnerability_timer.autostart = false
+	invulnerability_timer.timeout.connect(_on_invulnerability_finished)
+	add_child(invulnerability_timer)
 
 
 func _physics_process(delta: float) -> void:
@@ -51,6 +65,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.update(delta)
+	if(is_invulnerable):
+		sprite.visible = !sprite.visible
 
 
 func get_input_direction() -> float:
@@ -90,7 +106,7 @@ func update_velocity(movement_direction: float, delta: float, acceleration: floa
 
 func play_attack_animation() -> void:
 	var current_animation_name := animation_player.assigned_animation
-	var new_animation_name := ATTACK_ANIMATIONS[current_animation_name] as String
+	var new_animation_name := ATTACK_ANIMATIONS[current_animation_name]
 	var current_animation_position := animation_player.current_animation_position
 	animation_player.play(new_animation_name)
 	animation_player.seek(current_animation_position, true)
@@ -99,7 +115,7 @@ func play_attack_animation() -> void:
 func _on_attack_finished() -> void:
 	attack.monitorable = false
 	var current_animation_name := animation_player.assigned_animation
-	var new_animation_name := NON_ATTACK_ANIMATIONS[current_animation_name] as String
+	var new_animation_name := NON_ATTACK_ANIMATIONS[current_animation_name]
 	var current_animation_position := animation_player.current_animation_position
 	animation_player.play(new_animation_name)
 	animation_player.seek(current_animation_position, true)
@@ -116,3 +132,13 @@ func check_attack_input() -> void:
 	attack.monitorable = true
 	play_attack_animation()
 	attack_timer.start()
+
+
+func _on_invulnerability_finished() -> void:
+	is_invulnerable = false
+	sprite.visible = true
+	hitbox.set_deferred("monitoring", true)
+
+
+func _on_got_hit(attacker: Hurtbox) -> void:
+	state_machine.handle_hit(attacker)

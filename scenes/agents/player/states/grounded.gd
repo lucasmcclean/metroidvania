@@ -2,6 +2,7 @@ extends PlayerState
 
 @export var fall_state: PlayerState
 @export var jump_state: PlayerState
+@export var stunned_state: PlayerState
 
 
 func enter() -> void:
@@ -53,3 +54,7 @@ func physics_update(delta: float) -> void:
 		player.update_velocity(0, delta, player.GROUNDED_ACCELERATION, player.GROUNDED_ACCELERATION)
 	if _check_falling():
 		return
+
+
+func handle_hit(_attacker: Hurtbox) -> void:
+	state_machine.change_state(stunned_state)

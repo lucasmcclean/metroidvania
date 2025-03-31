@@ -9,7 +9,8 @@ var state: State
 # TODO: Possibly employ lifecycle method
 func initialize() -> void:
 	for child in get_children():
-		child.state_machine = self
+		var state_child := child as State
+		state_child.state_machine = self
 	await owner.ready
 	change_state(initial_state)
 
@@ -27,3 +28,7 @@ func physics_update(delta: float) -> void:
 
 func update(delta: float) -> void:
 	state.update(delta)
+
+
+func handle_hit(attacker: Hurtbox) -> void:
+	state.handle_hit(attacker)

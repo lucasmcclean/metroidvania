@@ -7,6 +7,10 @@ var last_attacker: Hurtbox
 
 func enter() -> void:
 	player.hitbox.set_deferred("monitoring", false)
+	if player.is_attacking:
+		player.is_attacking = false
+		player.attack.set_deferred("monitoring", false)
+		player.attack_timer.stop()
 	if is_instance_valid(last_attacker):
 		if(last_attacker.global_position.x < player.global_position.x):
 			player.velocity.x = player.KNOCKBACK_VELOCITY_X

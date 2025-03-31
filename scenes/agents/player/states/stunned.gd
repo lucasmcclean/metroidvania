@@ -24,6 +24,10 @@ func _on_stun_finished() -> void:
 
 func enter() -> void:
 	player.velocity.x = 0
+	if player.is_attacking:
+		player.is_attacking = false
+		player.attack.set_deferred("monitoring", false)
+		player.attack_timer.stop()
 	if was_knocked_back:
 		player.animation_player.play("fall")
 		was_knocked_back = false
